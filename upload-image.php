@@ -30,22 +30,23 @@ if ($_FILES["file"]["error"] > 0){
 		if (file_exists($filePath)){
 			echo $fileName . " already exists. ";
 		}else{
-			$link = mysql_connect("localhost","root");
+			$link = mysqli_connect("localhost","root","","my_db");
 			if (!$link){
-			  die('Could not connect: ' . mysql_error());
+			  die('Could not connect: ' . mysqli_error());
 			}
 
-			mysql_select_db("my_db",$link);
+		//	mysql_select_db("my_db",$link);
 			$sql="INSERT INTO ".$_SESSION['user']."_images (filename, filesize, filetype,filepath) 
 			VALUES ('".$fileName."', '".$fileSize."', '".$fileType."','".$filePath."')";
 
-			  if (!mysql_query($sql,$link))
+			  if (!mysqli_query($link,$sql))
 			  {
-			  die('Error: ' . mysql_error());
+			  die('Error: ' . mysqli_error());
 			  }
 
 			move_uploaded_file($tmpName,$filePath);
 			echo "Stored in: " . $filePath;
+			mysqli_close($link);
 		}
 	}
 }  

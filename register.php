@@ -49,30 +49,30 @@ session_start();
 
 
 if(isset($_POST['register'])){
-$link = mysql_connect("localhost","root");
+$link = mysqli_connect("localhost","root","","my_db");
 if (!$link){
-  die('Could not connect: ' . mysql_error());
+  die('Could not connect: ' . mysqli_error());
 }
 
-mysql_select_db("my_db",$link);
+//mysql_select_db("my_db",$link);
 
 $sql="INSERT INTO user_accounts (username, password, firstname,lastname) 
 VALUES ('$_POST[username]', '$_POST[password]', '$_POST[firstname]', '$_POST[lastname]')";
 
-  if (!mysql_query($sql,$link))
+  if (!mysqli_query($link,$sql))
   {
-  die('Error: ' . mysql_error());
+  die('Error: ' . mysqli_error());
   }
 session_destroy();
 session_start();
 $_SESSION['user']=$_POST['username'];
 echo "Thank you for registering, ".$_SESSION['user']."!<br />";
 $sql="CREATE TABLE ".$_SESSION['user']."_images ( imageid int NOT NULL AUTO_INCREMENT, filename varchar(20), filesize int, filetype varchar(20), filepath varchar(130), PRIMARY KEY(imageid))";
-if (!mysql_query($sql,$link))
-  {
-  die('Error: ' . mysql_error());
-  }
-mysql_close($link);
+if (!mysqli_query($link,$sql))
+{
+   die('Error: ' . mysqli_error($link));
+}
+mysqli_close($link);
 //make new path dir for user
 $path="user_images/".$_POST['username']."_images";
 

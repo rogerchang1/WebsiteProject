@@ -6,15 +6,16 @@
 <?php
 session_start();
 if(isset($_POST['submit'])){
-$link = mysql_connect("localhost","root");
+$link = mysqli_connect("localhost","root","","my_db");
 if (!$link){
-  die('Could not connect: ' . mysql_error());
+  die('Could not connect: ' . mysqli_error());
 }
 
-mysql_select_db("my_db",$link);
+//mysql_select_db("my_db",$link);
+$sql="SELECT * FROM user_accounts WHERE username='".$_POST['username']."' AND password='".$_POST['password']."'";
+$check=mysqli_query($link,$sql);
 
-$check=mysql_query("SELECT * FROM user_accounts WHERE username='".$_POST['username']."' AND password='".$_POST['password']."'",$link) or die('Error: ' . mysql_error());
-if(mysql_num_rows($check)>0){
+if(mysqli_num_rows($check)>0){
 	session_destroy();
 	session_start();
 	$_SESSION['user']=$_POST['username'];
@@ -23,7 +24,7 @@ if(mysql_num_rows($check)>0){
 }else{
 	echo "Invalid username/password <br />";
 }
-mysql_close($link);
+mysqli_close($link);
 }else
 {
 session_destroy();
