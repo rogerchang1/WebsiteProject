@@ -5,14 +5,16 @@ if(!$link){
   die('Could not connect: ' . mysqli_error());
 }
 
+
 //mysql_select_db("my_db",$link);
-$sql="SELECT filepath FROM ".$_SESSION['user']."_images";
+$sql="SELECT * FROM ".$_SESSION['user']."_images";
 
 $result = mysqli_query($link,$sql);
 $count=0;
 while($row = mysqli_fetch_array($result))
   {
-echo "<a href='".$row['filepath']."'>
+//echo "<a href='".$row['filepath']."'>
+echo "<a href='view-image-info.php?filename=".$row['filename']."'>
 <img src='".$row['filepath']."' width='100' height='71' border='0' />
 </a>";
 $count++;
