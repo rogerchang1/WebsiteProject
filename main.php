@@ -63,7 +63,15 @@ $(document).ready(function(){
 if(isset($_SESSION['user'])){
 	include 'upload-image-form.php';
 	echo "<a href='view-user-images.php'>View Image Database</a><br />";
+	echo "<a href='view-users.php'>View Users</a><br />";
 }
+/*$age = array("b"=>1,"a"=>2);
+echo $age["b"];
+$age["c"]=3;
+echo $age["c"];
+foreach ($age as $value){
+	echo $value;
+}*/
 ?>
 
 <!--

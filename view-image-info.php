@@ -33,3 +33,4 @@ mysqli_close($link);
 
 
 ?>
+<a href='view-user-images.php'>Back to your images</a>
