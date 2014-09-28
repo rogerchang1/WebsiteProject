@@ -10,7 +10,11 @@ if(!$link){
 }
 
 $filename = $_GET["filename"];
-$sql = "SELECT * FROM ".$_SESSION['user']."_images WHERE filename='".$filename."'";
+
+if(!ISSET($_GET["username"]))
+	$sql = "SELECT * FROM ".$_SESSION['user']."_images WHERE filename='".$filename."'";
+else
+	$sql = "SELECT * FROM ".$_GET["username"]."_images WHERE filename='".$filename."'";
 
 
 

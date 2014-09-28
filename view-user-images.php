@@ -7,16 +7,30 @@ if(!$link){
 
 
 //mysql_select_db("my_db",$link);
-$sql="SELECT * FROM ".$_SESSION['user']."_images";
+
+//$username = $_GET["username"];
+
+
+if(!ISSET($_GET["username"]))
+	$sql="SELECT * FROM ".$_SESSION['user']."_images";
+else
+	$sql="SELECT * FROM ".$_GET["username"]."_images";
 
 $result = mysqli_query($link,$sql);
 $count=0;
 while($row = mysqli_fetch_array($result))
   {
 //echo "<a href='".$row['filepath']."'>
-echo "<a href='view-image-info.php?filename=".$row['filename']."'>
-<img src='".$row['filepath']."' width='100' height='71' border='0' />
-</a>";
+
+if(!ISSET($_GET["username"])){
+	echo "<a href='view-image-info.php?filename=".$row['filename']."'>
+	<img src='".$row['filepath']."' width='100' height='71' border='0' />
+	</a>";
+}else{
+	echo "<a href='view-image-info.php?filename=".$row['filename']."&username=".$_GET["username"]."'>
+	<img src='".$row['filepath']."' width='100' height='71' border='0' />
+	</a>";
+}
 $count++;
 if($count==5){
 echo "<br />";
