@@ -43,6 +43,9 @@ echo "<a href='user_images/testuser_images/ARXNOVENA300.jpg'>
 </a>";
 */
 mysqli_close($link);
+echo "<br />";
+if(ISSET($_GET["username"]))
+	echo "<a href='view-users.php'>Back to Users List</a>";
 ?>
 <br />
 <a href='main.php'>Back to Main Page</a>

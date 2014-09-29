@@ -8,6 +8,7 @@ if ($_FILES["file"]["error"] > 0){
 	$tmpName  = $_FILES['file']['tmp_name'];
 	$fileSize = $_FILES['file']['size']/1024;
 	$fileType = $_FILES['file']['type'];
+	$imageid=0;
 	$uploadDir = "user_images/".$_SESSION['user']."_images/";
 	echo "<br />upload dir: ".$uploadDir."<br />";
 	$filePath = $uploadDir.$fileName;
@@ -36,12 +37,27 @@ if ($_FILES["file"]["error"] > 0){
 			}
 
 		//	mysql_select_db("my_db",$link);
-			$sql="INSERT INTO ".$_SESSION['user']."_images (filename, filesize, filetype,filepath) 
-			VALUES ('".$fileName."', '".$fileSize."', '".$fileType."','".$filePath."')";
+			$sql="INSERT INTO images (filename, filesize, filetype,filepath)VALUES ('".$fileName."', '".$fileSize."', '".$fileType."','".$filePath."')";
+			if (!mysqli_query($link,$sql))
+				die('Error: ' . mysqli_error($link));
+			$sql="SELECT imageid FROM images WHERE filepath='".$filePath."'";
+			$result = mysqli_query($link,$sql);
+			while($row = mysqli_fetch_array($result)){
+				$imageid=$row['imageid'];
+			}
+			echo "Image id is ".$imageid;
+			
+			$sql="insert into userimages (userid,imageid) values (".$_SESSION['userid'].", ".$imageid.")";
+			if (!mysqli_query($link,$sql))
+				die('Error: ' . mysqli_error($link));
+				
+			
+			$sql="INSERT INTO ".$_SESSION['user']."_images (imageid, filename, filesize, filetype,filepath) 
+			VALUES (".$imageid.",'".$fileName."', '".$fileSize."', '".$fileType."','".$filePath."')";
 
 			  if (!mysqli_query($link,$sql))
 			  {
-			  die('Error: ' . mysqli_error());
+				die('Error: ' . mysqli_error($link));
 			  }
 
 			move_uploaded_file($tmpName,$filePath);

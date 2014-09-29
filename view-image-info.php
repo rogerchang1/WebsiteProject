@@ -33,8 +33,8 @@ while($row = mysqli_fetch_array($result)){
 
 mysqli_close($link);
 
-
-
-
+if(!ISSET($_GET["username"]))
+	echo "<a href='view-user-images.php'>Back to your images</a>";
+else
+	echo "<a href='view-user-images.php?username=".$_GET['username']."'>Back to your images</a>";
 ?>
-<a href='view-user-images.php'>Back to your images</a>

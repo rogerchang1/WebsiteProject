@@ -18,7 +18,12 @@ $check=mysqli_query($link,$sql);
 if(mysqli_num_rows($check)>0){
 	session_destroy();
 	session_start();
+	$userid;
+	while($row = mysqli_fetch_array($check)){
+		$userid=$row['user_id'];
+	}
 	$_SESSION['user']=$_POST['username'];
+	$_SESSION['userid']=$userid;
 	echo "Thank you for signing in, ".$_SESSION['user']."!<br />";
 	echo "<meta http-equiv='refresh' content='5;url=main.php'>";
 }else{

@@ -6,7 +6,7 @@ session_start();
 
 if(isset($_SESSION['user'])){
 setcookie("user",$_SESSION['user'],time()+3600);
-echo "Welcome " . $_SESSION["user"] . "!<br />";
+echo "Welcome " . $_SESSION["user"] . " userid is ".$_SESSION['userid']."!<br />";
 	if(isset($_SESSION["views"]))
 		$_SESSION["views"]++;
 	else

@@ -65,9 +65,18 @@ VALUES ('$_POST[username]', '$_POST[password]', '$_POST[firstname]', '$_POST[las
   }
 session_destroy();
 session_start();
+$sql="SELECT * FROM user_accounts WHERE username='".$_POST['username']."' AND password='".$_POST['password']."'";
+$check=mysqli_query($link,$sql);
+while($row = mysqli_fetch_array($check)){
+	$userid=$row['user_id'];
+}
+$_SESSION['userid']=$userid;
+
 $_SESSION['user']=$_POST['username'];
 echo "Thank you for registering, ".$_SESSION['user']."!<br />";
-$sql="CREATE TABLE ".$_SESSION['user']."_images ( imageid int NOT NULL AUTO_INCREMENT, filename varchar(20), filesize int, filetype varchar(20), filepath varchar(130), PRIMARY KEY(imageid))";
+
+$sql="CREATE TABLE ".$_SESSION['user']."_images ( imageid int NOT NULL, filename varchar(20), filesize int, filetype varchar(20), filepath varchar(130), UNIQUE(imageid))";
+//$sql="CREATE TABLE ".$_SESSION['user']."_images ( imageid int NOT NULL AUTO_INCREMENT, filename varchar(20), filesize int, filetype varchar(20), filepath varchar(130), PRIMARY KEY(imageid))";
 if (!mysqli_query($link,$sql))
 {
    die('Error: ' . mysqli_error($link));
