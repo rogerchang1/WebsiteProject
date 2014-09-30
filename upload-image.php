@@ -37,7 +37,7 @@ if ($_FILES["file"]["error"] > 0){
 			}
 
 		//	mysql_select_db("my_db",$link);
-			$sql="INSERT INTO images (filename, filesize, filetype,filepath)VALUES ('".$fileName."', '".$fileSize."', '".$fileType."','".$filePath."')";
+			$sql="INSERT INTO images (filename, filesize, filetype,filepath,date)VALUES ('".$fileName."', '".$fileSize."', '".$fileType."','".$filePath."',now())";
 			if (!mysqli_query($link,$sql))
 				die('Error: ' . mysqli_error($link));
 			$sql="SELECT imageid FROM images WHERE filepath='".$filePath."'";
@@ -52,8 +52,8 @@ if ($_FILES["file"]["error"] > 0){
 				die('Error: ' . mysqli_error($link));
 				
 			
-			$sql="INSERT INTO ".$_SESSION['user']."_images (imageid, filename, filesize, filetype,filepath) 
-			VALUES (".$imageid.",'".$fileName."', '".$fileSize."', '".$fileType."','".$filePath."')";
+			$sql="INSERT INTO ".$_SESSION['user']."_images (imageid, filename, filesize, filetype,filepath,date) 
+			VALUES (".$imageid.",'".$fileName."', '".$fileSize."', '".$fileType."','".$filePath."',now())";
 
 			  if (!mysqli_query($link,$sql))
 			  {

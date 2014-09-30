@@ -59,12 +59,25 @@ $(document).ready(function(){
 
 <body>
 
+
+
 <?php
 if(isset($_SESSION['user'])){
+
+
+if(isset($_SESSION['user'])){
+	include 'view-recent-images.php';
+	
 	include 'upload-image-form.php';
 	echo "<a href='view-user-images.php'>View Image Database</a><br />";
 	echo "<a href='view-users.php'>View Users</a><br />";
 }
+
+
+
+}
+
+
 /*$age = array("b"=>1,"a"=>2);
 echo $age["b"];
 $age["c"]=3;
