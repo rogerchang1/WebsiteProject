@@ -18,7 +18,10 @@ echo "<table border = '1' >";
 echo"<tr><td><b>List of Users</b></td>><td><b>View Images</b></td></tr>";
 while($row = mysqli_fetch_array($result)){
 	//echo $row['filepath'];
-	echo"<tr><td>".$row['username']."</td>><td><a href='view-user-images.php?username=".$row['username']."'>Images</a></td></tr>";
+	echo"<tr>
+	<td><a href='view-user-info.php?username=".$row['username']."'>".$row['username']."</a></td>
+	<td><a href='view-user-images.php?username=".$row['username']."'>Images</a></td>
+	</tr>";
 //	echo "<a href='".$row['filepath']."'>";
 //	echo "<img src='".$row['filepath']."' width='100' height='71' border='0' />";
 //	echo "</a> <br />";
